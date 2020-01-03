@@ -9,8 +9,8 @@
             <el-table-column label="姓名" prop="realname"></el-table-column>
             <el-table-column label="性别" prop="gender"></el-table-column>
             <el-table-column width="120" label="手机号" prop="telephone"></el-table-column>
-            <el-table-column width="200" label="身份证号" prop="idcard"></el-table-column>
-            <el-table-column width="200" label="银行卡号" prop="bankkard"></el-table-column>
+            <el-table-column width="200" label="身份证号" prop="idCard"></el-table-column>
+            <el-table-column width="200" label="银行卡号" prop="bankCard"></el-table-column>
             <el-table-column label="操作">
                 <template v-slot="slot">
                     <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>
@@ -43,7 +43,7 @@
                     <el-radio :label="6">女</el-radio>
                   </el-radio-group>
                   </template>
-                  <el-input/>
+                  
                 </el-form-item>
                 <el-form-item label="手机号" v-model="form.telephone">
                   <el-input/>

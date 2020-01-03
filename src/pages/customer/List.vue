@@ -46,7 +46,7 @@
           <el-input v-model="form.telephone"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="form.idcard"></el-input>
+          <el-input v-model="form.idCard"></el-input>
         </el-form-item>
       </el-form>
 
