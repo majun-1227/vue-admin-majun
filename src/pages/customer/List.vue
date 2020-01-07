@@ -9,18 +9,16 @@
       <el-table-column prop="id" label="编号"></el-table-column>
       <el-table-column prop="realname" label="姓名"></el-table-column>
       <el-table-column prop="telephone" label="联系方式"></el-table-column>
-      <el-table-column prop="gender" label="性别"></el-table-column>
-       <el-table-column prop="idcard" label="身份证号"></el-table-column>
       <el-table-column label="操作">
         <template v-slot="slot">
           <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>
-          <a href="" @click.prevent="toUpdateHandler (slot.row)">修改</a>
+          <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a>
         </template>
       </el-table-column>
     </el-table>
     <!-- /表格结束 -->
     <!-- 分页开始 -->
-    <el-pagination layout="prev, pager, next" :total="50"></el-pagination>
+    <!-- <el-pagination layout="prev, pager, next" :total="50"></el-pagination> -->
     <!-- /分页结束 -->
     <!-- 模态框 -->
     <el-dialog
@@ -35,18 +33,10 @@
           <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item label="真实姓名">
-          <el-input v-model="form.realname">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-input v-model="form.gender">
-          </el-input>
+          <el-input v-model="form.realname"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
           <el-input v-model="form.telephone"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证号">
-          <el-input v-model="form.idCard"></el-input>
         </el-form-item>
       </el-form>
 
@@ -98,7 +88,6 @@ export default {
           message:response.message
         })
       })
-
     },
     toDeleteHandler(id){
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -106,30 +95,34 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        let url ="http://localhost:6677/customer/deleteById?id="+id;
-      request.get(url).then((response)=>{
-        //刷新数据
-        this.loadData();
-
-        //提示结果
-      })
-        this.$message({
-          type: 'success',
-          message: response.message
-        });
+        // 调用后台接口，完成删除操作
+        let url = "http://localhost:6677/customer/deleteById?id="+id;
+        request.get(url).then((response)=>{
+          //1. 刷新数据
+          this.loadData();
+          //2. 提示结果
+          this.$message({
+            type: 'success',
+            message: response.message
+          });
+        })
+        
+        
       })
       
     },
     toUpdateHandler(row){
-      this.form =row;
+      // 模态框表单中显示出当前行的信息
+      this.form = row;
       this.visible = true;
     },
     closeModalHandler(){
       this.visible = false;
     },
     toAddHandler(){
-      this.form={
-        type:"customeri"
+      // 将form变为初始值
+      this.form = {
+        type:"customer"
       }
       this.visible = true;
     }
@@ -147,8 +140,7 @@ export default {
   created(){
     // this为当前vue实例对象
     // vue实例创建完毕 
-    this.loadData()
-
+    this.loadData();
   }
 }
 </script>
